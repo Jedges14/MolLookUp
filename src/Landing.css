@@ -1,10 +1,8 @@
-
 .Title_Box{
     top: 0;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: space-between;
     width: 100%;
     position: sticky;
     background-color: rgba(0, 0, 0, 0.6);
@@ -24,10 +22,51 @@
     color: #00ffff;
     position: relative;
     left: 25px;
-    size: 18px;
+    size: 18vw;
 }
 
 .UserLogin{
     margin-left: auto;
+    color: #00ffff;
+}
+
+/* facts div */
+.fact-Container{
+    display: flex;
+    justify-content: space-around;
+    background-color: #00ffff;
+    padding: 15px;;
+    margin-top: 5vh;
+    font-size:27px; 
+}
+
+.Random-Mol-fact,.Mol-History {
+    padding: 50px;
+    font-size: inherit;
+}
+
+.Search-Container{
+    display:flex;
+    margin-top: 20px;
+    background-color:rgba(0, 0, 0, 0.6) ;
+    justify-content: center;
+    align-self:center;
+    padding: 50 0 50 0;
+} 
+
+
+.inputText{
+    font-size: 27px;
+    padding:8px;
+    color: #00ffff;
+}
+
+#input{
+    border-radius: 5px;
+    width: 75%;
+    box-sizing: border-box;
+    box-shadow: inset;
+    padding:8px;
     
 }
+
