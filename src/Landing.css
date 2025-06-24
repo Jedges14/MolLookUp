@@ -33,36 +33,43 @@
 /* facts div */
 .fact-Container{
     display: flex;
-    justify-content: space-around;
-    background-color: #00ffff;
-    padding: 15px;;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px 5vw;
     margin-top: 5vh;
-    font-size:27px; 
+    font-size:18px; 
 }
 
 .Random-Mol-fact,.Mol-History {
-    padding: 50px;
+    background-color: whitesmoke;
+    box-shadow:rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    border-radius: 20px;
+    max-width: 45%;
+    flex:1;
+    padding: 20px;
     font-size: inherit;
+    margin: 0 30px;
 }
 
 .Search-Container{
     display:flex;
-    margin-top: 20px;
+    margin: 20px 0 20px 0;
     background-color:rgba(0, 0, 0, 0.6) ;
     justify-content: center;
     align-self:center;
-    padding: 50 0 50 0;
+    padding: 50px 0 50px 0;
 } 
 
 
 .inputText{
-    font-size: 27px;
-    padding:8px;
+    font-size: 35px;
+    padding:12px;
     color: #00ffff;
 }
 
 #input{
-    border-radius: 5px;
+    border-radius: 20px;
     width: 75%;
     box-sizing: border-box;
     box-shadow: inset;

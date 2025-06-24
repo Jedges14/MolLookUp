@@ -1,6 +1,27 @@
 import './Landing.css';
+import getrandomFact from './landingAPI';
+import React, {useEffect, useState} from 'react';
 
 const LandingPage = () => {
+    const [fact, setFact] = useState('Loading Science Facts..');
+
+    useEffect(() => {
+        const today = new Date().toISOString().split('T')[0]; // e.g., "2025-06-23"
+        const savedDate = localStorage.getItem('factDate');
+        const savedFact = localStorage.getItem('fact');
+
+        if (savedDate === today && savedFact) {
+            setFact(savedFact);
+        } else {
+            getrandomFact().then(f => {
+            setFact(f);
+            localStorage.setItem('fact', f);
+            localStorage.setItem('factDate', today);
+            }).catch(() => {
+            setFact('Sorry, no fact today.');
+            });
+        }
+    }, []);
 
     
     return (
@@ -28,8 +49,12 @@ const LandingPage = () => {
         </div>
 
         <div className="fact-Container">
-            <div className="Random-Mol-fact"><p>free</p></div>
-            <div className="Mol-History"><p>part</p></div>
+            <div className="Random-Mol-fact">
+                <p>{fact}</p>
+            </div>
+            <div className="Mol-History">
+                <p>part</p>    
+            </div>
         </div>
 
         {/* input the search */}
