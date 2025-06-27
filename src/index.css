@@ -1,9 +1,15 @@
+*,
+*::before,
+*::after{
+  box-sizing: border-box;
+}
+
 body,html{
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  flex-wrap: nowrap;
-  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
   width:100%;
   background-image:url('./components/background1.png');
   background-repeat: no-repeat;
