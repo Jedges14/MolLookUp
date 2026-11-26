@@ -92,3 +92,22 @@ describe('CACHE_BYPASS guard', () => {
     expect(() => loadConfig({ ...base, CACHE_BYPASS: 'true', CACHE_ONLY: 'true' })).toThrow(/cannot both/);
   });
 });
+
+describe('connection URL validation (catches values pasted with their key or quotes)', () => {
+  const base = { DATABASE_URL: 'postgres://u:p@localhost:5432/db' };
+  it.each([
+    'REDIS_URL="rediss://default:pw@host.upstash.io:6379"',
+    '"rediss://default:pw@host.upstash.io:6379"',
+    'https://host.upstash.io',
+  ])('rejects REDIS_URL %s with a readable message', (v) => {
+    expect(() => loadConfig({ ...base, REDIS_URL: v })).toThrow(/REDIS_URL: must be just the URL/);
+  });
+  it('accepts redis:// and rediss://', () => {
+    expect(loadConfig({ ...base, REDIS_URL: 'rediss://default:pw@host.upstash.io:6379' }).REDIS_URL).toMatch(/^rediss:/);
+    expect(loadConfig({ ...base, REDIS_URL: 'redis://localhost:6379/2' }).REDIS_URL).toMatch(/^redis:/);
+  });
+  it('rejects a quoted DATABASE_URL and accepts postgresql://', () => {
+    expect(() => loadConfig({ DATABASE_URL: '"postgresql://u:p@h/db"' })).toThrow(/DATABASE_URL: must be just the URL/);
+    expect(loadConfig({ DATABASE_URL: 'postgresql://u:p@ep-x.us-east-1.aws.neon.tech/neondb?sslmode=verify-full' }).DATABASE_URL).toMatch(/^postgresql:/);
+  });
+});

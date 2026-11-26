@@ -83,6 +83,7 @@ same commands on every PR.
 | Backend `src/` (unit + integration; `server.ts` wiring excluded) | `cd backend && npm run test:coverage` | 96.03% (436/454) | 93.71% (492/525) | 86.68% (254/293) | 92.74% (115/124) |
 | Frontend `src/` (`main.jsx` bootstrap excluded) | `cd frontend && npm run test:coverage` | 100% (50/50) | 98.24% (56/57) | 100% (38/38) | 94.73% (18/19) |
 
+Later: config validation for connection URLs added 5 backend unit tests (103 unit, 129 total; commit after `248ae2a`).
 Earlier record: at `3d9c142` (M3) there were 121 tests (95 backend unit); backend line coverage 96.33%.
 
 No test calls the real PubChem or RapidAPI. CI on PR #1 and on `main` after merge: backend, frontend and Docker image
