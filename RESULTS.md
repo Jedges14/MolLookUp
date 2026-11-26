@@ -89,6 +89,17 @@ Earlier record: at `3d9c142` (M3) there were 121 tests (95 backend unit); backen
 No test calls the real PubChem or RapidAPI. CI on PR #1 and on `main` after merge: backend, frontend and Docker image
 jobs passed; see the Actions tab for the E2E job.
 
+## Deployment smoke test (M4)
+
+Date: 2026-11-26 ~05:40 UTC · Frontend https://mol-look-up.vercel.app (Vercel) · API https://mollookup-api.onrender.com
+(Render free, Docker, built from `main` at `252b77a`) · Postgres on Neon, Redis on Upstash (all US East).
+
+- `cd e2e; $env:E2E_BASE_URL='https://mol-look-up.vercel.app'; npx playwright test` → **2 passed** (search "aspirin"
+  shows the structure image and formula; a misspelling shows the empty state; no direct PubChem/RapidAPI calls).
+- `curl` checks from the laptop: `/health` → db ok, redis ok; CORS allows only the Vercel origin; first "aspirin"
+  search 3.93 s (`X-Cache: miss`), repeat 0.089 s (`X-Cache: redis`). Single samples including the internet round
+  trip; illustrative only, not a benchmark.
+
 ## Other measurements
 
 - Page weight: background image 14,577,969 B → 236,700 B (−98.4%), commit `630d5da`. Built JS 72.9 kB gzipped.
