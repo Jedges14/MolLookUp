@@ -7,8 +7,8 @@ Desktop 29.9.3 (Postgres 17 and Redis 8 containers); Node v22.16.0.
 
 ## Search latency: caching off vs. warm cache (SPEC §5.1, M4)
 
-Date: 2026-11-26 05:12–05:20 UTC (00:12–00:20 US Eastern, off-peak for NCBI) · Backend code: commit `25903f7`
-(the run itself was recorded as `252b77a+uncommitted`, the same backend source before it was committed) ·
+Date: 2026-11-26 05:12–05:20 UTC (00:12–00:20 US Eastern, off-peak for NCBI) · Backend code: commit `8157df1`
+(the run itself was recorded as `12f4899+uncommitted`, the same backend source before it was committed) ·
 Command: `node bench/latency.mjs` · Raw data: [`bench/results/latency-2026-11-26T05-20-16-994Z.json`](bench/results/latency-2026-11-26T05-20-16-994Z.json)
 
 200 fixed queries ([`bench/compounds.txt`](bench/compounds.txt)): 180 common drug names + 20 deliberate misspellings.
@@ -42,7 +42,7 @@ total about 960 requests, run once, off-peak.
 
 ## Load test (SPEC §5.2, M4)
 
-Date: 2026-11-26 05:21–05:25 UTC · Backend code: commit `25903f7` · k6 v1.8.2 (`grafana/k6:1.8.2`) ·
+Date: 2026-11-26 05:21–05:25 UTC · Backend code: commit `8157df1` · k6 v1.8.2 (`grafana/k6:1.8.2`) ·
 Command: `docker run --rm -v "<repo>/bench:/bench" -e BASE_URL=http://host.docker.internal:3201 grafana/k6:1.8.2 run /bench/load.js`
 · Raw data: [`bench/results/k6-summary-2026-11-26T05-25-46Z.json`](bench/results/k6-summary-2026-11-26T05-25-46Z.json)
 
@@ -67,7 +67,7 @@ previous one returns), 60 s per step.
 
 ## Tests and coverage
 
-Date: 2026-11-26 · Branch `feat/m4-benchmarks` at `697b624` (code identical to the run) · run locally; CI runs the
+Date: 2026-11-26 · Branch `feat/m4-benchmarks` at `8f03f32` (code identical to the run) · run locally; CI runs the
 same commands on every PR.
 
 | Suite | Command | Result |
@@ -83,8 +83,8 @@ same commands on every PR.
 | Backend `src/` (unit + integration; `server.ts` wiring excluded) | `cd backend && npm run test:coverage` | 96.03% (436/454) | 93.71% (492/525) | 86.68% (254/293) | 92.74% (115/124) |
 | Frontend `src/` (`main.jsx` bootstrap excluded) | `cd frontend && npm run test:coverage` | 100% (50/50) | 98.24% (56/57) | 100% (38/38) | 94.73% (18/19) |
 
-Later: config validation for connection URLs added 5 backend unit tests (103 unit, 129 total; commit after `248ae2a`).
-Earlier record: at `3d9c142` (M3) there were 121 tests (95 backend unit); backend line coverage 96.33%.
+Later: config validation for connection URLs added 5 backend unit tests (103 unit, 129 total; commit after `d0d3c77`).
+Earlier record: at `a4863c6` (M3) there were 121 tests (95 backend unit); backend line coverage 96.33%.
 
 No test calls the real PubChem or RapidAPI. CI on PR #1 and on `main` after merge: backend, frontend and Docker image
 jobs passed; see the Actions tab for the E2E job.
@@ -92,7 +92,7 @@ jobs passed; see the Actions tab for the E2E job.
 ## Deployment smoke test (M4)
 
 Date: 2026-11-26 ~05:40 UTC · Frontend https://mol-look-up.vercel.app (Vercel) · API https://mollookup-api.onrender.com
-(Render free, Docker, built from `main` at `252b77a`) · Postgres on Neon, Redis on Upstash (all US East).
+(Render free, Docker, built from `main` at `12f4899`) · Postgres on Neon, Redis on Upstash (all US East).
 
 - `cd e2e; $env:E2E_BASE_URL='https://mol-look-up.vercel.app'; npx playwright test` → **2 passed** (search "aspirin"
   shows the structure image and formula; a misspelling shows the empty state; no direct PubChem/RapidAPI calls).
@@ -102,7 +102,7 @@ Date: 2026-11-26 ~05:40 UTC · Frontend https://mol-look-up.vercel.app (Vercel) 
 
 ## Other measurements
 
-- Page weight: background image 14,577,969 B → 236,700 B (−98.4%), commit `630d5da`. Built JS 72.9 kB gzipped.
+- Page weight: background image 14,577,969 B → 236,700 B (−98.4%), commit `ce86897`. Built JS 72.9 kB gzipped.
 
 ## Baseline of the original app (M0)
 
