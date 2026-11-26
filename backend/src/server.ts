@@ -41,6 +41,7 @@ const app = createApp({
   compounds: new CompoundService(store, pubchem, logger, {
     cache,
     cacheOnly: config.CACHE_ONLY,
+    bypassCache: config.CACHE_BYPASS,
     metrics,
     ttls: {
       positiveSeconds: config.CACHE_TTL_SECONDS,
@@ -58,7 +59,7 @@ const app = createApp({
 });
 
 const server = app.listen(config.PORT, () =>
-  logger.info({ port: config.PORT, cacheOnly: config.CACHE_ONLY }, 'MolLookUp API listening'),
+  logger.info({ port: config.PORT, cacheOnly: config.CACHE_ONLY, bypassCache: config.CACHE_BYPASS }, 'MolLookUp API listening'),
 );
 
 process.on('unhandledRejection', (reason) => logger.error({ reason }, 'unhandled rejection'));

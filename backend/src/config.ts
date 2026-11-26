@@ -18,6 +18,11 @@ const schema = z.object({
     .enum(['true', 'false', '1', '0'])
     .default('false')
     .transform((v) => v === 'true' || v === '1'),
+  // Benchmark baseline: bypass Redis and Postgres entirely. Refused in production (see below).
+  CACHE_BYPASS: z
+    .enum(['true', 'false', '1', '0'])
+    .default('false')
+    .transform((v) => v === 'true' || v === '1'),
   RAPIDAPI_KEY: z
     .string()
     .optional()
@@ -34,5 +39,12 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     const issues = parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ');
     throw new Error(`Invalid configuration: ${issues}`);
   }
-  return parsed.data;
+  const cfg = parsed.data;
+  if (cfg.CACHE_BYPASS && cfg.NODE_ENV === 'production') {
+    throw new Error('Invalid configuration: CACHE_BYPASS is for benchmarks only and is not allowed in production');
+  }
+  if (cfg.CACHE_BYPASS && cfg.CACHE_ONLY) {
+    throw new Error('Invalid configuration: CACHE_BYPASS and CACHE_ONLY cannot both be set');
+  }
+  return cfg;
 }
