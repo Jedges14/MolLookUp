@@ -6,8 +6,19 @@ Search for a drug or compound by name (or PubChem CID) and see its 2D structure,
 The React frontend talks only to the MolLookUp API. The API answers from Redis, then PostgreSQL, and only on a full
 miss calls PubChem's PUG-REST API, through a rate-limited client (≤4 requests/s, retries with backoff).
 
-> Status: milestones M1–M3 of [SPEC.md](SPEC.md) (backend, PubChem client, Redis caching, metrics, tests, CI).
-> Deploy and benchmarks come in M4. Measured numbers live in [RESULTS.md](RESULTS.md). See [docs/AUDIT.md](docs/AUDIT.md) for where the project started.
+> Status: M0–M4 of [SPEC.md](SPEC.md). Live site: **coming soon** (deployment in progress; see
+> [docs/DEPLOY.md](docs/DEPLOY.md)). Every number below is in [RESULTS.md](RESULTS.md) with the command that produced it.
+
+![MolLookUp search for aspirin](docs/screenshot.png)
+
+## Results at a glance
+
+| | Measured | How |
+|---|---|---|
+| Search latency, caching off → warm Redis | **2,779 ms → 1.9 ms mean (99.9% lower)** | 200 fixed queries, sequential, same machine |
+| Warm Postgres (found names) | 3.5 ms mean | Redis flushed, Postgres kept |
+| Load test | **200 concurrent virtual users: p95 189 ms, 0 errors, ~1.8k req/s** | k6, cache-only mode (no PubChem load), laptop |
+| Tests | **124** (98 backend unit, 10 integration, 14 frontend, 2 E2E) | backend line coverage 96%, frontend 100% |
 
 ## Architecture
 
@@ -58,7 +69,7 @@ Errors are always `{"error": {"code", "message"}}`: 400 invalid input, 404 not f
 
 ## Tests
 
-121 tests: 95 backend unit, 10 backend integration, 14 frontend, 2 end-to-end. Coverage is in [RESULTS.md](RESULTS.md).
+124 tests: 98 backend unit, 10 backend integration, 14 frontend, 2 end-to-end. Coverage is in [RESULTS.md](RESULTS.md).
 
 ```bash
 cd backend  && npm test                # unit (no Docker needed)
@@ -79,5 +90,16 @@ docker compose up -d postgres redis && cd e2e && npm ci && npx playwright instal
 **CI** ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs on every PR and push to `main`: backend lint →
 typecheck → unit + integration tests with coverage; frontend lint → tests with coverage → build; Playwright E2E
 against Postgres/Redis service containers; and a Docker build of the API image (checked to run as non-root).
+
+## Benchmarks
+
+```bash
+docker compose up -d postgres redis && (cd backend && npm ci && npm run build)
+node bench/latency.mjs          # ~15-20 min; ~960 PubChem requests at <=4/s. Run off-peak, and rarely.
+# load test: API in cache-only mode on :3201, then
+docker run --rm -v "${PWD}/bench:/bench" -e BASE_URL=http://host.docker.internal:3201 grafana/k6:1.8.2 run /bench/load.js
+```
+
+See [RESULTS.md](RESULTS.md) for the exact setup, the raw JSON, and limitations.
 
 Data: [PubChem](https://pubchem.ncbi.nlm.nih.gov/) (NCBI). Facts: API Ninjas via RapidAPI.
