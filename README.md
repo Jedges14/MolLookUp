@@ -18,7 +18,7 @@ miss calls PubChem's PUG-REST API, through a rate-limited client (≤4 requests/
 | Search latency, caching off → warm Redis | **2,779 ms → 1.9 ms mean (99.9% lower)** | 200 fixed queries, sequential, same machine |
 | Warm Postgres (found names) | 3.5 ms mean | Redis flushed, Postgres kept |
 | Load test | **200 concurrent virtual users: p95 189 ms, 0 errors, ~1.8k req/s** | k6, cache-only mode (no PubChem load), laptop |
-| Tests | **124** (98 backend unit, 10 integration, 14 frontend, 2 E2E) | backend line coverage 96%, frontend 100% |
+| Tests | **129** (103 backend unit, 10 integration, 14 frontend, 2 E2E) | backend line coverage 96%, frontend 100% |
 
 ## Architecture
 
@@ -69,7 +69,7 @@ Errors are always `{"error": {"code", "message"}}`: 400 invalid input, 404 not f
 
 ## Tests
 
-124 tests: 98 backend unit, 10 backend integration, 14 frontend, 2 end-to-end. Coverage is in [RESULTS.md](RESULTS.md).
+129 tests: 103 backend unit, 10 backend integration, 14 frontend, 2 end-to-end. Coverage is in [RESULTS.md](RESULTS.md).
 
 ```bash
 cd backend  && npm test                # unit (no Docker needed)
