@@ -1,0 +1,35 @@
+1	aspirin	200	true	259.9
+1	ibuprofen	200	true	33.0
+1	acetaminophen	200	true	27.0
+1	caffeine	200	true	24.8
+1	metformin	200	true	25.6
+1	atorvastatin	200	true	780.2
+1	amoxicillin	200	true	31.4
+1	omeprazole	200	true	35.2
+1	lisinopril	200	true	32.0
+1	penicillin	200	true	21.1
+2	aspirin	200	true	17.6
+2	ibuprofen	200	true	13.2
+2	acetaminophen	200	true	18.9
+2	caffeine	200	true	23.4
+2	metformin	200	true	10.4
+2	atorvastatin	-1	false	16.3
+2	amoxicillin	200	true	10.5
+2	omeprazole	200	true	17.2
+2	lisinopril	200	true	12.2
+2	penicillin	200	true	11.4
+3	aspirin	200	true	12.9
+3	ibuprofen	200	true	12.9
+3	acetaminophen	200	true	16.6
+3	caffeine	200	true	19.7
+3	metformin	200	true	11.6
+3	atorvastatin	-1	false	18.8
+3	amoxicillin	200	true	11.4
+3	omeprazole	200	true	16.8
+3	lisinopril	200	true	18.5
+3	penicillin	200	true	12.9
+ALL       n=30 mean=52.5 p50=17.6 p95=259.9 min=10.4 max=780.2 (ms)
+ROUND 1   n=10 mean=127.0 p50=31.4 p95=780.2 min=21.1 max=780.2 (ms)
+ROUNDS 2+ n=20 mean=15.2 p50=13.2 p95=19.7 min=10.4 max=23.4 (ms)
+failures: 2/30
+date: 2026-11-26T03:29:48.647Z  node: v22.16.0  platform: win32

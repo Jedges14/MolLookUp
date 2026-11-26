@@ -1,0 +1,157 @@
+.Main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+
+
+.Title_Box{
+    top: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: 100%;
+    position: sticky;
+    background-color: rgba(255, 255, 255, 0.15);
+    z-index: 1000;
+    backdrop-filter: blur(7px);
+}
+
+.nav-bar{
+    display:none;
+    left:0;
+    position: absolute;
+    padding:15px;
+}
+
+.wesbiteName{
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    color: #00ffff;
+    position: relative;
+    left: 25px;
+    size: 18vw;
+}
+
+.UserLogin{
+    margin-left: auto;
+    color: #00ffff;
+}
+
+/* facts div */
+.fact-Container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    width:100%;
+    padding: 15px 5vw;
+    margin-top: 5vh;
+    gap: 35px;
+    font-size:18px; 
+}
+
+.Random-Mol-fact,.Mol-History,.Mol-des{
+    background-color: whitesmoke;
+    box-shadow:rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    border-radius: 20px;
+    width: 45%;
+    min-width: 300px;
+    flex:1 1 45%;
+    padding: 20px;
+    font-size: inherit;
+    margin:10px;
+}
+
+.molImg{
+    max-width: 100%;
+    height:auto;
+    display:block;
+    margin:0 auto;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: inset;
+    background-color: white;
+}
+
+.Search-Container{
+    display:flex;
+    margin: 20px 0 20px 0;
+    background-color:rgba(0, 0, 0, 0.6) ;
+    justify-content: center;
+    align-self:center;
+    padding: 50px 0 50px 0;
+} 
+
+
+.inputText{
+    font-size: 35px;
+    padding:12px;
+    margin:0 auto;
+    color: #00ffff;
+}
+
+#input{
+    border-radius: 20px;
+    width: 75%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    box-shadow: inset;
+    padding:8px;
+    
+}
+
+
+.description-field-area{
+    display: flex;
+    overflow:scroll;
+    justify-content: center;
+    background-color: white;
+    border-radius: 20px;
+    font-size: 18px;
+    padding:30px;
+    width:75vw;
+    overflow: auto;
+    margin:0 auto;
+}
+
+
+.footer-Area{
+    background-color: rgba(255,255,255,0.9);
+    width: 100%;
+    text-align: center;
+    padding: 30px 10px;
+    margin-top: 40px;
+    border-top: 1px solid #ccc;
+    font-size: 16px;
+}
+
+
+/* Search results (M1) */
+.results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.result {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.result img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 8px;
+}
+.result h4 {
+  margin: 0 0 4px;
+}
+.result p {
+  margin: 2px 0;
+}
