@@ -6,8 +6,11 @@ Search for a drug or compound by name (or PubChem CID) and see its 2D structure,
 The React frontend talks only to the MolLookUp API. The API answers from Redis, then PostgreSQL, and only on a full
 miss calls PubChem's PUG-REST API, through a rate-limited client (≤4 requests/s, retries with backoff).
 
-> Status: M0–M4 of [SPEC.md](SPEC.md). Live site: **coming soon** (deployment in progress; see
-> [docs/DEPLOY.md](docs/DEPLOY.md)). Every number below is in [RESULTS.md](RESULTS.md) with the command that produced it.
+**Live: https://mol-look-up.vercel.app** (API: https://mollookup-api.onrender.com/health). The API is on a free
+plan and sleeps when idle, so the first search after a quiet spell can take up to a minute.
+
+> Status: M0–M4 of [SPEC.md](SPEC.md). Hosting: Vercel (frontend), Render (API, Docker), Neon (Postgres), Upstash
+> (Redis); see [docs/DEPLOY.md](docs/DEPLOY.md). Every number below is in [RESULTS.md](RESULTS.md) with the command that produced it.
 
 ![MolLookUp search for aspirin](docs/screenshot.png)
 
