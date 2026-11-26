@@ -1,0 +1,26 @@
+# Render Blueprint for the MolLookUp API (Docker). Postgres and Redis are external (Neon, Upstash):
+# Render's free Postgres expires after 30 days. Secrets are entered in the Render dashboard (sync: false).
+services:
+  - type: web
+    name: mollookup-api
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    autoDeploy: true # redeploys on every push to main
+    envVars:
+      - key: DATABASE_URL # Neon connection string, with ?sslmode=require
+        sync: false
+      - key: REDIS_URL # Upstash rediss:// URL
+        sync: false
+      - key: CORS_ORIGIN # the Vercel URL, e.g. https://mollookup.vercel.app
+        sync: false
+      - key: RAPIDAPI_KEY
+        sync: false
+      - key: PUBCHEM_USER_AGENT
+        value: MolLookUp/0.1 (portfolio project)
+      - key: PUBCHEM_RPS
+        value: '4'
+      - key: LOG_LEVEL
+        value: info
