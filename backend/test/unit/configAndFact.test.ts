@@ -81,3 +81,14 @@ describe('FactService', () => {
     await expect(new FactService('k', weird as unknown as typeof fetch).today()).rejects.toThrow();
   });
 });
+
+describe('CACHE_BYPASS guard', () => {
+  const base = { DATABASE_URL: 'postgres://u:p@localhost:5432/db' };
+  it('is allowed outside production', () => {
+    expect(loadConfig({ ...base, CACHE_BYPASS: 'true' }).CACHE_BYPASS).toBe(true);
+  });
+  it('is refused in production and together with CACHE_ONLY', () => {
+    expect(() => loadConfig({ ...base, CACHE_BYPASS: 'true', NODE_ENV: 'production' })).toThrow(/production/);
+    expect(() => loadConfig({ ...base, CACHE_BYPASS: 'true', CACHE_ONLY: 'true' })).toThrow(/cannot both/);
+  });
+});

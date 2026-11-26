@@ -225,3 +225,34 @@ describe('Metrics', () => {
     expect(m.snapshot().pubchem).toEqual({ requests: 3, errors: 2 });
   });
 });
+
+describe('bypass mode (benchmark baseline)', () => {
+  it('never reads or writes Redis/Postgres and always calls PubChem (2 requests per search)', async () => {
+    const store = fakeStore();
+    const pubchem = fakePubChem();
+    const cache = new MemoryCache();
+    const get = vi.spyOn(cache, 'get');
+    const set = vi.spyOn(cache, 'set');
+    const svc = new CompoundService(store, pubchem, quietLog, { cache, bypassCache: true });
+
+    for (let i = 0; i < 2; i++) {
+      const r = await svc.search('aspirin');
+      expect(r).toEqual({
+        query: 'aspirin',
+        cache: 'miss',
+        results: [{ cid: 2244, name: 'Aspirin', formula: 'C9H8O4', mw: 180.16 }],
+      });
+    }
+    expect(pubchem.cidsByName).toHaveBeenCalledTimes(2);
+    expect(pubchem.properties).toHaveBeenCalledTimes(2);
+    expect(pubchem.synonyms).not.toHaveBeenCalled();
+    expect(get).not.toHaveBeenCalled();
+    expect(set).not.toHaveBeenCalled();
+    expect(store.findByQuery).not.toHaveBeenCalled();
+    expect(store.save).not.toHaveBeenCalled();
+
+    await expect(svc.search('asprinnn')).resolves.toMatchObject({ results: [] });
+    expect((await svc.detail(2244)).value?.formula).toBe('C9H8O4');
+    expect(store.getByCid).not.toHaveBeenCalled();
+  });
+});
