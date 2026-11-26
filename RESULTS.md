@@ -7,8 +7,8 @@ Every number here came from a command run in this repo. Each entry records the c
 
 ## Tests and coverage (M3)
 
-Date: 2026-11-25 · Branch `feat/m1-backend`, **uncommitted working tree** on top of `74edcf2`. Re-record with a
-commit hash once this is committed, and again from the CI run on the PR.
+Date: 2026-11-25 · Branch `feat/m1-backend` at commit **`3d9c142`** (clean working tree), run locally.
+CI runs the same commands on every PR; see the Actions tab for the run on GitHub's Ubuntu runners.
 
 | Suite | Command | Result |
 |---|---|---|
