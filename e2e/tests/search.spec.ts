@@ -17,7 +17,8 @@ test('search "aspirin" shows its structure image and formula', async ({ page }) 
   await expect(page.getByText('Molecular weight: 180.16 g/mol')).toBeVisible();
 
   const img = page.getByRole('img', { name: '2D structure of Aspirin' });
-  await expect(img).toHaveAttribute('src', '/api/compounds/2244/image');
+  // Relative when the UI and API share an origin (local); absolute API URL when deployed separately.
+  await expect(img).toHaveAttribute('src', /\/api\/compounds\/2244\/image$/);
   // The PNG actually loaded and decoded (not a broken image).
   await expect
     .poll(() => img.evaluate((el: HTMLImageElement) => (el.complete ? el.naturalWidth : 0)))

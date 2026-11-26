@@ -1,0 +1,5706 @@
+{
+  "benchmark": "search latency, caching disabled vs warm (SPEC §5.1)",
+  "date": "2026-11-26T05:20:16.994Z",
+  "commit": "252b77a+uncommitted",
+  "machine": {
+    "os": "Windows_NT 10.0.26300",
+    "cpu": "13th Gen Intel(R) Core(TM) i7-13700H",
+    "cpus": 20,
+    "memGiB": 15.7,
+    "node": "v22.16.0"
+  },
+  "setup": "API = node backend/dist/server.js on the same machine; Postgres 17 + Redis 8 in Docker; sequential queries",
+  "summaries": [
+    {
+      "label": "uncached",
+      "n": 200,
+      "ok": 200,
+      "errors": 0,
+      "found": 180,
+      "notFound": 20,
+      "meanMs": 2779.006463000002,
+      "p50Ms": 1679.0513999999966,
+      "p95Ms": 6989.044699999999,
+      "minMs": 58.513399999937974,
+      "maxMs": 31008.492100000032,
+      "tiers": {
+        "miss": 200
+      },
+      "pubchemRequests": 380,
+      "pubchemReqPerSec": 0.6836963786562692,
+      "wallSeconds": 555.8022711
+    },
+    {
+      "label": "cold",
+      "n": 200,
+      "ok": 200,
+      "errors": 0,
+      "found": 180,
+      "notFound": 20,
+      "meanMs": 3215.338990999994,
+      "p50Ms": 2093.1173999999883,
+      "p95Ms": 8220.217199999955,
+      "minMs": 102.23569999984466,
+      "maxMs": 26299.89229999995,
+      "tiers": {
+        "miss": 200
+      },
+      "pubchemRequests": 560,
+      "pubchemReqPerSec": 0.8708249510075553,
+      "wallSeconds": 643.0683909
+    },
+    {
+      "label": "warm-redis",
+      "n": 200,
+      "ok": 200,
+      "errors": 0,
+      "found": 180,
+      "notFound": 20,
+      "meanMs": 1.926704500002088,
+      "p50Ms": 1.6313999998383224,
+      "p95Ms": 3.287999999942258,
+      "minMs": 1.3211999998893589,
+      "maxMs": 4.195400000084192,
+      "tiers": {
+        "redis": 200
+      },
+      "pubchemRequests": 0,
+      "pubchemReqPerSec": 0,
+      "wallSeconds": 0.3856154000000097
+    },
+    {
+      "label": "warm-db",
+      "n": 200,
+      "ok": 200,
+      "errors": 0,
+      "found": 180,
+      "notFound": 20,
+      "meanMs": 195.47569300000205,
+      "p50Ms": 3.224299999885261,
+      "p95Ms": 1296.2645000000484,
+      "minMs": 2.7907000000122935,
+      "maxMs": 15334.041700000176,
+      "tiers": {
+        "db": 180,
+        "miss": 20
+      },
+      "pubchemRequests": 20,
+      "pubchemReqPerSec": 0.5115694866931206,
+      "wallSeconds": 39.09537320000003
+    }
+  ],
+  "reductionVsUncached": {
+    "warm-redis": 0.9993066930481614,
+    "warm-db": 0.9296598638388982
+  },
+  "rows": {
+    "uncached": [
+      {
+        "q": "aspirin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 584.9555999999993
+      },
+      {
+        "q": "ibuprofen",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2818.7183000000005
+      },
+      {
+        "q": "acetaminophen",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 560.1118999999999
+      },
+      {
+        "q": "naproxen",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 505.3130000000001
+      },
+      {
+        "q": "diclofenac",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 552.6597999999994
+      },
+      {
+        "q": "celecoxib",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 507.8238000000001
+      },
+      {
+        "q": "meloxicam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 533.6418999999987
+      },
+      {
+        "q": "indomethacin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 583.4585000000006
+      },
+      {
+        "q": "ketorolac",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2795.3358000000007
+      },
+      {
+        "q": "piroxicam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 573.9168000000027
+      },
+      {
+        "q": "morphine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 556.2543000000005
+      },
+      {
+        "q": "codeine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 591.0624000000025
+      },
+      {
+        "q": "oxycodone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 494.3090000000011
+      },
+      {
+        "q": "hydrocodone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 549.4526000000005
+      },
+      {
+        "q": "tramadol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1653.3623000000007
+      },
+      {
+        "q": "fentanyl",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2886.1648999999998
+      },
+      {
+        "q": "methadone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1950.5750000000007
+      },
+      {
+        "q": "buprenorphine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3216.878700000001
+      },
+      {
+        "q": "hydromorphone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2769.348399999999
+      },
+      {
+        "q": "naloxone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 550.3165999999983
+      },
+      {
+        "q": "naltrexone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 544.9232999999949
+      },
+      {
+        "q": "amoxicillin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1731.5090999999957
+      },
+      {
+        "q": "ampicillin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 653.9346000000005
+      },
+      {
+        "q": "penicillin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 708.3027000000002
+      },
+      {
+        "q": "azithromycin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1679.0513999999966
+      },
+      {
+        "q": "clarithromycin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2788.091099999998
+      },
+      {
+        "q": "erythromycin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2773.3887999999934
+      },
+      {
+        "q": "doxycycline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1814.6650999999983
+      },
+      {
+        "q": "tetracycline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2808.4799000000057
+      },
+      {
+        "q": "minocycline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2320.5918999999994
+      },
+      {
+        "q": "ciprofloxacin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2657.0129000000015
+      },
+      {
+        "q": "levofloxacin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3042.121500000001
+      },
+      {
+        "q": "moxifloxacin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 520.1647999999986
+      },
+      {
+        "q": "cephalexin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 967.8897999999972
+      },
+      {
+        "q": "ceftriaxone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1567.533000000003
+      },
+      {
+        "q": "cefuroxime",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 587.3945000000022
+      },
+      {
+        "q": "vancomycin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 596.7021000000022
+      },
+      {
+        "q": "gentamicin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 498.5308999999979
+      },
+      {
+        "q": "clindamycin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 568.1893000000055
+      },
+      {
+        "q": "metronidazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 517.8295999999973
+      },
+      {
+        "q": "nitrofurantoin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 544.1598999999987
+      },
+      {
+        "q": "trimethoprim",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 578.040700000005
+      },
+      {
+        "q": "sulfamethoxazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1595.4098000000013
+      },
+      {
+        "q": "linezolid",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2859.598299999998
+      },
+      {
+        "q": "rifampin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1609.0967000000092
+      },
+      {
+        "q": "isoniazid",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 548.816599999991
+      },
+      {
+        "q": "acyclovir",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 498.2508000000089
+      },
+      {
+        "q": "valacyclovir",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2783.3992
+      },
+      {
+        "q": "oseltamivir",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2837.7745999999897
+      },
+      {
+        "q": "zidovudine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6943.094100000002
+      },
+      {
+        "q": "tenofovir",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 16893.64330000001
+      },
+      {
+        "q": "lamivudine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6787.952499999999
+      },
+      {
+        "q": "ritonavir",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1610.1321000000025
+      },
+      {
+        "q": "fluconazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1761.9189000000042
+      },
+      {
+        "q": "ketoconazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 683.3608000000095
+      },
+      {
+        "q": "terbinafine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1612.3636000000115
+      },
+      {
+        "q": "atorvastatin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3011.4418000000005
+      },
+      {
+        "q": "simvastatin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1537.827099999995
+      },
+      {
+        "q": "rosuvastatin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6847.554799999998
+      },
+      {
+        "q": "pravastatin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 576.2492999999959
+      },
+      {
+        "q": "lovastatin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 521.4201999999932
+      },
+      {
+        "q": "lisinopril",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1589.2456999999995
+      },
+      {
+        "q": "enalapril",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2879.6714999999967
+      },
+      {
+        "q": "ramipril",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 7005.52410000001
+      },
+      {
+        "q": "losartan",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6866.691200000001
+      },
+      {
+        "q": "valsartan",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 650.9962999999989
+      },
+      {
+        "q": "irbesartan",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1613.8396000000066
+      },
+      {
+        "q": "amlodipine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6989.044699999999
+      },
+      {
+        "q": "nifedipine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6883.150300000008
+      },
+      {
+        "q": "diltiazem",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 560.136599999998
+      },
+      {
+        "q": "verapamil",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2860.6094000000157
+      },
+      {
+        "q": "metoprolol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2760.682700000005
+      },
+      {
+        "q": "atenolol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6879.22589999999
+      },
+      {
+        "q": "propranolol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6838.3661999999895
+      },
+      {
+        "q": "carvedilol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 566.5138999999908
+      },
+      {
+        "q": "bisoprolol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2805.482100000023
+      },
+      {
+        "q": "hydrochlorothiazide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1813.1551000000036
+      },
+      {
+        "q": "furosemide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6962.97689999998
+      },
+      {
+        "q": "spironolactone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2863.496699999989
+      },
+      {
+        "q": "chlorthalidone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 621.8902999999991
+      },
+      {
+        "q": "warfarin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 5843.373300000007
+      },
+      {
+        "q": "clopidogrel",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 667.2584999999963
+      },
+      {
+        "q": "apixaban",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4051.321799999976
+      },
+      {
+        "q": "rivaroxaban",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 5867.044600000023
+      },
+      {
+        "q": "dabigatran",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2824.133200000011
+      },
+      {
+        "q": "digoxin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6965.170000000013
+      },
+      {
+        "q": "amiodarone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1764.7196000000113
+      },
+      {
+        "q": "nitroglycerin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 5724.6147000000055
+      },
+      {
+        "q": "hydralazine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 784.4095000000088
+      },
+      {
+        "q": "clonidine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 5964.131400000013
+      },
+      {
+        "q": "ezetimibe",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2830.590499999991
+      },
+      {
+        "q": "metformin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2866.9022000000114
+      },
+      {
+        "q": "glipizide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2330.060200000007
+      },
+      {
+        "q": "glyburide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 16810.731499999994
+      },
+      {
+        "q": "glimepiride",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6833.820500000031
+      },
+      {
+        "q": "pioglitazone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6867.889599999995
+      },
+      {
+        "q": "sitagliptin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 16851.33539999998
+      },
+      {
+        "q": "empagliflozin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2924.570799999987
+      },
+      {
+        "q": "dapagliflozin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2872.4280000000144
+      },
+      {
+        "q": "canagliflozin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 7483.589899999963
+      },
+      {
+        "q": "omeprazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2786.097800000047
+      },
+      {
+        "q": "esomeprazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2807.6404999999795
+      },
+      {
+        "q": "pantoprazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2981.766399999964
+      },
+      {
+        "q": "lansoprazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2840.9050999999745
+      },
+      {
+        "q": "famotidine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2825.1214000000036
+      },
+      {
+        "q": "ranitidine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1602.7518999999738
+      },
+      {
+        "q": "ondansetron",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1730.3942999999854
+      },
+      {
+        "q": "metoclopramide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1720.4087999999756
+      },
+      {
+        "q": "loperamide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2771.8546000000206
+      },
+      {
+        "q": "bisacodyl",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 580.2024000000092
+      },
+      {
+        "q": "sertraline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1598.844299999997
+      },
+      {
+        "q": "fluoxetine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6898.6656000000075
+      },
+      {
+        "q": "citalopram",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6886.5004999999655
+      },
+      {
+        "q": "escitalopram",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 5412.68909999996
+      },
+      {
+        "q": "paroxetine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 20968.99239999999
+      },
+      {
+        "q": "venlafaxine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6803.947400000005
+      },
+      {
+        "q": "duloxetine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1787.3585000000312
+      },
+      {
+        "q": "bupropion",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 602.2920000000158
+      },
+      {
+        "q": "mirtazapine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1613.6721000000252
+      },
+      {
+        "q": "trazodone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1716.986499999999
+      },
+      {
+        "q": "amitriptyline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2758.8278999999748
+      },
+      {
+        "q": "nortriptyline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 716.1885000000475
+      },
+      {
+        "q": "lithium carbonate",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1582.028399999952
+      },
+      {
+        "q": "quetiapine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 561.8243000000366
+      },
+      {
+        "q": "olanzapine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1799.594599999953
+      },
+      {
+        "q": "risperidone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1992.9228000000003
+      },
+      {
+        "q": "aripiprazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1941.110100000049
+      },
+      {
+        "q": "haloperidol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2617.993299999973
+      },
+      {
+        "q": "clozapine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 573.4365000000107
+      },
+      {
+        "q": "alprazolam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1734.1392999999807
+      },
+      {
+        "q": "lorazepam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2769.2820000000065
+      },
+      {
+        "q": "diazepam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1773.175500000012
+      },
+      {
+        "q": "clonazepam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 577.142600000021
+      },
+      {
+        "q": "zolpidem",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1592.6824999999953
+      },
+      {
+        "q": "buspirone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1859.2528000000166
+      },
+      {
+        "q": "methylphenidate",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1756.018700000015
+      },
+      {
+        "q": "amphetamine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 15655.372300000046
+      },
+      {
+        "q": "atomoxetine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 517.5542000000132
+      },
+      {
+        "q": "modafinil",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 534.0911000000197
+      },
+      {
+        "q": "caffeine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 580.2130999999936
+      },
+      {
+        "q": "gabapentin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 519.5072999999975
+      },
+      {
+        "q": "pregabalin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 495.88099999999395
+      },
+      {
+        "q": "levetiracetam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1777.2795000000042
+      },
+      {
+        "q": "lamotrigine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 570.5230999999912
+      },
+      {
+        "q": "carbamazepine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 570.3569000000134
+      },
+      {
+        "q": "phenytoin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 565.812200000044
+      },
+      {
+        "q": "valproic acid",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 502.469700000016
+      },
+      {
+        "q": "topiramate",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 517.9895999999717
+      },
+      {
+        "q": "sumatriptan",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1554.2872000000207
+      },
+      {
+        "q": "donepezil",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1600.2220000000088
+      },
+      {
+        "q": "memantine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 551.0180999999866
+      },
+      {
+        "q": "levodopa",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 602.4472999999998
+      },
+      {
+        "q": "carbidopa",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 607.4181000000099
+      },
+      {
+        "q": "ropinirole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 592.4468999999808
+      },
+      {
+        "q": "albuterol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1556.2260999999708
+      },
+      {
+        "q": "salmeterol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2809.655700000003
+      },
+      {
+        "q": "montelukast",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1622.096200000029
+      },
+      {
+        "q": "fluticasone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 519.3901000000187
+      },
+      {
+        "q": "budesonide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1578.7486999999965
+      },
+      {
+        "q": "theophylline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 505.69650000002
+      },
+      {
+        "q": "cetirizine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 553.271699999983
+      },
+      {
+        "q": "loratadine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2788.363500000036
+      },
+      {
+        "q": "fexofenadine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1776.8996000000043
+      },
+      {
+        "q": "diphenhydramine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2776.3180000000284
+      },
+      {
+        "q": "pseudoephedrine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 16903.497900000017
+      },
+      {
+        "q": "dextromethorphan",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2750.034500000009
+      },
+      {
+        "q": "guaifenesin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 566.2662000000128
+      },
+      {
+        "q": "levothyroxine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1786.4302000000025
+      },
+      {
+        "q": "prednisone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1788.766900000046
+      },
+      {
+        "q": "prednisolone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2810.979699999967
+      },
+      {
+        "q": "dexamethasone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 7001.546700000006
+      },
+      {
+        "q": "hydrocortisone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2535.8122999999905
+      },
+      {
+        "q": "methotrexate",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6832.586099999957
+      },
+      {
+        "q": "allopurinol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 31008.492100000032
+      },
+      {
+        "q": "colchicine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2839.5251000000862
+      },
+      {
+        "q": "finasteride",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6844.377600000007
+      },
+      {
+        "q": "tamsulosin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2807.760099999956
+      },
+      {
+        "q": "sildenafil",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2835.776599999983
+      },
+      {
+        "q": "tadalafil",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2777.0186000000685
+      },
+      {
+        "q": "estradiol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 519.3772999999346
+      },
+      {
+        "q": "asprinnn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 58.513399999937974
+      },
+      {
+        "q": "ibuprofenn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 255.7380000000121
+      },
+      {
+        "q": "acetaminofenn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 263.40690000006
+      },
+      {
+        "q": "amoxicilinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 255.53350000001956
+      },
+      {
+        "q": "lisinoprill",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 277.4124999999767
+      },
+      {
+        "q": "metforminn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 242.5692000000272
+      },
+      {
+        "q": "atorvastatinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 279.86780000000726
+      },
+      {
+        "q": "omeprazolle",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1308.0459000000264
+      },
+      {
+        "q": "sertralline",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 248.74660000007134
+      },
+      {
+        "q": "gabapentinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1314.579800000065
+      },
+      {
+        "q": "levothyroxinne",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1317.097300000023
+      },
+      {
+        "q": "prednisonne",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 5358.077099999995
+      },
+      {
+        "q": "warfarinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1305.8941999999806
+      },
+      {
+        "q": "albuterrol",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 258.4098000000231
+      },
+      {
+        "q": "cetirizzine",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1310.4318999999668
+      },
+      {
+        "q": "losartann",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1305.7160999999614
+      },
+      {
+        "q": "simvastatinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1307.4912000000477
+      },
+      {
+        "q": "tramadoll",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 254.5002000000095
+      },
+      {
+        "q": "doxycyclinne",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1300.0426999999909
+      },
+      {
+        "q": "fluoxetinne",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 266.4381000000285
+      }
+    ],
+    "cold": [
+      {
+        "q": "aspirin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 7189.5763999999035
+      },
+      {
+        "q": "ibuprofen",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2022.4621999999508
+      },
+      {
+        "q": "acetaminophen",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1876.5699000000022
+      },
+      {
+        "q": "naproxen",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1912.8128000000725
+      },
+      {
+        "q": "diclofenac",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4205.086099999957
+      },
+      {
+        "q": "celecoxib",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4118.152899999986
+      },
+      {
+        "q": "meloxicam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8238.543199999956
+      },
+      {
+        "q": "indomethacin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 12438.184899999993
+      },
+      {
+        "q": "ketorolac",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 22309.38599999994
+      },
+      {
+        "q": "piroxicam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8163.916099999915
+      },
+      {
+        "q": "morphine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 11062.027200000011
+      },
+      {
+        "q": "codeine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4066.890999999945
+      },
+      {
+        "q": "oxycodone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 5995.278800000087
+      },
+      {
+        "q": "hydrocodone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 5878.941300000064
+      },
+      {
+        "q": "tramadol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 790.3634000000311
+      },
+      {
+        "q": "fentanyl",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 751.0213000000222
+      },
+      {
+        "q": "methadone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 834.4124999999767
+      },
+      {
+        "q": "buprenorphine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2015.7661999999546
+      },
+      {
+        "q": "hydromorphone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 885.5047000000486
+      },
+      {
+        "q": "naloxone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1841.0655999999726
+      },
+      {
+        "q": "naltrexone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2093.1173999999883
+      },
+      {
+        "q": "amoxicillin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2019.530999999959
+      },
+      {
+        "q": "ampicillin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4104.671399999992
+      },
+      {
+        "q": "penicillin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1864.9663000000874
+      },
+      {
+        "q": "azithromycin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3100.26119999995
+      },
+      {
+        "q": "clarithromycin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1875.890999999945
+      },
+      {
+        "q": "erythromycin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1886.4418000000296
+      },
+      {
+        "q": "doxycycline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6997.029800000018
+      },
+      {
+        "q": "tetracycline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2013.2596999999369
+      },
+      {
+        "q": "minocycline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3161.325300000026
+      },
+      {
+        "q": "ciprofloxacin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4133.330199999968
+      },
+      {
+        "q": "levofloxacin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4156.221399999922
+      },
+      {
+        "q": "moxifloxacin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8212.98749999993
+      },
+      {
+        "q": "cephalexin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2033.3153999999631
+      },
+      {
+        "q": "ceftriaxone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2953.844000000041
+      },
+      {
+        "q": "cefuroxime",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2972.453499999945
+      },
+      {
+        "q": "vancomycin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1987.7763000000268
+      },
+      {
+        "q": "gentamicin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3070.272400000016
+      },
+      {
+        "q": "clindamycin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1837.3967999999877
+      },
+      {
+        "q": "metronidazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3111.177000000025
+      },
+      {
+        "q": "nitrofurantoin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 876.3046000000322
+      },
+      {
+        "q": "trimethoprim",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2948.130700000096
+      },
+      {
+        "q": "sulfamethoxazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1850.6619000000646
+      },
+      {
+        "q": "linezolid",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2269.8210000001127
+      },
+      {
+        "q": "rifampin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2954.7972999999765
+      },
+      {
+        "q": "isoniazid",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2609.0792000000365
+      },
+      {
+        "q": "acyclovir",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3102.2846000000136
+      },
+      {
+        "q": "valacyclovir",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3095.539699999965
+      },
+      {
+        "q": "oseltamivir",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2307.8440999999875
+      },
+      {
+        "q": "zidovudine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4071.8848
+      },
+      {
+        "q": "tenofovir",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8234.776899999939
+      },
+      {
+        "q": "lamivudine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4581.6246999999275
+      },
+      {
+        "q": "ritonavir",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 7023.432399999932
+      },
+      {
+        "q": "fluconazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4214.601999999955
+      },
+      {
+        "q": "ketoconazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3064.8834999999963
+      },
+      {
+        "q": "terbinafine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4371.5292999999365
+      },
+      {
+        "q": "atorvastatin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8194.329700000002
+      },
+      {
+        "q": "simvastatin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8366.708899999969
+      },
+      {
+        "q": "rosuvastatin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4785.649100000039
+      },
+      {
+        "q": "pravastatin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1844.4745000000112
+      },
+      {
+        "q": "lovastatin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 7158.6973
+      },
+      {
+        "q": "lisinopril",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4138.785200000042
+      },
+      {
+        "q": "enalapril",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4333.10149999999
+      },
+      {
+        "q": "ramipril",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4206.7972999999765
+      },
+      {
+        "q": "losartan",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1949.4438999999547
+      },
+      {
+        "q": "valsartan",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3477.64439999999
+      },
+      {
+        "q": "irbesartan",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4454.873000000021
+      },
+      {
+        "q": "amlodipine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1941.7334000000264
+      },
+      {
+        "q": "nifedipine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4195.256900000037
+      },
+      {
+        "q": "diltiazem",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 755.2935999999754
+      },
+      {
+        "q": "verapamil",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 793.8532000000123
+      },
+      {
+        "q": "metoprolol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 850.4284000000916
+      },
+      {
+        "q": "atenolol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1936.7208999999566
+      },
+      {
+        "q": "propranolol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3113.9397999999346
+      },
+      {
+        "q": "carvedilol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8220.217199999955
+      },
+      {
+        "q": "bisoprolol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2890.2395999999717
+      },
+      {
+        "q": "hydrochlorothiazide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3060.4883999999147
+      },
+      {
+        "q": "furosemide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8276.289699999965
+      },
+      {
+        "q": "spironolactone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3048.8491000001086
+      },
+      {
+        "q": "chlorthalidone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 16975.143500000006
+      },
+      {
+        "q": "warfarin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 763.0546000000322
+      },
+      {
+        "q": "clopidogrel",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2196.987099999911
+      },
+      {
+        "q": "apixaban",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2732.2229000000516
+      },
+      {
+        "q": "rivaroxaban",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3046.965000000084
+      },
+      {
+        "q": "dabigatran",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4348.135200000019
+      },
+      {
+        "q": "digoxin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1906.4562999999616
+      },
+      {
+        "q": "amiodarone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2903.2147000000114
+      },
+      {
+        "q": "nitroglycerin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 766.1496000000043
+      },
+      {
+        "q": "hydralazine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3093.629799999995
+      },
+      {
+        "q": "clonidine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4163.117399999988
+      },
+      {
+        "q": "ezetimibe",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 26299.89229999995
+      },
+      {
+        "q": "metformin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1784.4760999999708
+      },
+      {
+        "q": "glipizide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2069.5759000000544
+      },
+      {
+        "q": "glyburide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4208.820799999987
+      },
+      {
+        "q": "glimepiride",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 736.1182000000263
+      },
+      {
+        "q": "pioglitazone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4121.666599999997
+      },
+      {
+        "q": "sitagliptin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1929.608799999929
+      },
+      {
+        "q": "empagliflozin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2016.8734000000404
+      },
+      {
+        "q": "dapagliflozin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 757.6536000000779
+      },
+      {
+        "q": "canagliflozin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 873.2201999999816
+      },
+      {
+        "q": "omeprazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1834.8832999999868
+      },
+      {
+        "q": "esomeprazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2124.783599999966
+      },
+      {
+        "q": "pantoprazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2103.371999999974
+      },
+      {
+        "q": "lansoprazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3101.668500000029
+      },
+      {
+        "q": "famotidine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2982.4038999999175
+      },
+      {
+        "q": "ranitidine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2012.6435999999521
+      },
+      {
+        "q": "ondansetron",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4212.387299999944
+      },
+      {
+        "q": "metoclopramide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3048.2114000000292
+      },
+      {
+        "q": "loperamide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1087.7560999999987
+      },
+      {
+        "q": "bisacodyl",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 5885.353800000041
+      },
+      {
+        "q": "sertraline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2014.6268000000855
+      },
+      {
+        "q": "fluoxetine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3121.6814000000013
+      },
+      {
+        "q": "citalopram",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1876.0088000000687
+      },
+      {
+        "q": "escitalopram",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2065.658599999966
+      },
+      {
+        "q": "paroxetine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3111.2759999999544
+      },
+      {
+        "q": "venlafaxine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 824.8377000000328
+      },
+      {
+        "q": "duloxetine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 744.7691999999806
+      },
+      {
+        "q": "bupropion",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1869.71669999999
+      },
+      {
+        "q": "mirtazapine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 789.1252000000095
+      },
+      {
+        "q": "trazodone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3284.3955000001006
+      },
+      {
+        "q": "amitriptyline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1222.826699999976
+      },
+      {
+        "q": "nortriptyline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2823.4139999999898
+      },
+      {
+        "q": "lithium carbonate",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3390.5431999999564
+      },
+      {
+        "q": "quetiapine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2868.54170000006
+      },
+      {
+        "q": "olanzapine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1868.9605000000447
+      },
+      {
+        "q": "risperidone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8196.532899999991
+      },
+      {
+        "q": "aripiprazole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4186.735699999961
+      },
+      {
+        "q": "haloperidol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8175.976499999873
+      },
+      {
+        "q": "clozapine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 802.6828000000678
+      },
+      {
+        "q": "alprazolam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3029.086699999869
+      },
+      {
+        "q": "lorazepam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1896.4931999999098
+      },
+      {
+        "q": "diazepam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4150.814600000158
+      },
+      {
+        "q": "clonazepam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4136.400599999819
+      },
+      {
+        "q": "zolpidem",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8188.445199999958
+      },
+      {
+        "q": "buspirone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2015.9842000000644
+      },
+      {
+        "q": "methylphenidate",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1967.4044000001159
+      },
+      {
+        "q": "amphetamine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8145.549699999858
+      },
+      {
+        "q": "atomoxetine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 8182.854900000151
+      },
+      {
+        "q": "modafinil",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 11221.977100000018
+      },
+      {
+        "q": "caffeine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1828.1625000000931
+      },
+      {
+        "q": "gabapentin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4216.2029999999795
+      },
+      {
+        "q": "pregabalin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1901.1033999999054
+      },
+      {
+        "q": "levetiracetam",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3045.9827000000514
+      },
+      {
+        "q": "lamotrigine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 6974.4220000000205
+      },
+      {
+        "q": "carbamazepine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2017.185599999968
+      },
+      {
+        "q": "phenytoin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 799.5082999998704
+      },
+      {
+        "q": "valproic acid",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1842.4184000000823
+      },
+      {
+        "q": "topiramate",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1985.0997999999672
+      },
+      {
+        "q": "sumatriptan",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 805.4586000000127
+      },
+      {
+        "q": "donepezil",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 836.1032999998424
+      },
+      {
+        "q": "memantine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2121.7043999999296
+      },
+      {
+        "q": "levodopa",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2922.156399999978
+      },
+      {
+        "q": "carbidopa",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 7126.40289999987
+      },
+      {
+        "q": "ropinirole",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1919.466899999883
+      },
+      {
+        "q": "albuterol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1805.7386999998707
+      },
+      {
+        "q": "salmeterol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 896.7597000000533
+      },
+      {
+        "q": "montelukast",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1940.5424999999814
+      },
+      {
+        "q": "fluticasone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3087.374899999937
+      },
+      {
+        "q": "budesonide",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3100.938099999912
+      },
+      {
+        "q": "theophylline",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1954.8510000000242
+      },
+      {
+        "q": "cetirizine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1863.0594000001438
+      },
+      {
+        "q": "loratadine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1873.1229000000749
+      },
+      {
+        "q": "fexofenadine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3289.133300000103
+      },
+      {
+        "q": "diphenhydramine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3247.7942999999505
+      },
+      {
+        "q": "pseudoephedrine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 4570.149800000014
+      },
+      {
+        "q": "dextromethorphan",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1659.469900000142
+      },
+      {
+        "q": "guaifenesin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 3463.6393999999855
+      },
+      {
+        "q": "levothyroxine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1262.9536999999546
+      },
+      {
+        "q": "prednisone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1294.3685999999288
+      },
+      {
+        "q": "prednisolone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 1391.5720999999903
+      },
+      {
+        "q": "dexamethasone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 891.3976999998558
+      },
+      {
+        "q": "hydrocortisone",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 842.308599999873
+      },
+      {
+        "q": "methotrexate",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 895.3817999998573
+      },
+      {
+        "q": "allopurinol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2058.5448999998625
+      },
+      {
+        "q": "colchicine",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2088.939999999944
+      },
+      {
+        "q": "finasteride",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2039.1509000000078
+      },
+      {
+        "q": "tamsulosin",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2119.0753000001423
+      },
+      {
+        "q": "sildenafil",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 2486.402100000065
+      },
+      {
+        "q": "tadalafil",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 644.5256000000518
+      },
+      {
+        "q": "estradiol",
+        "status": 200,
+        "cache": "miss",
+        "n": 1,
+        "ms": 814.1925000001211
+      },
+      {
+        "q": "asprinnn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1294.5895000000019
+      },
+      {
+        "q": "ibuprofenn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 247.62989999982528
+      },
+      {
+        "q": "acetaminofenn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 253.50839999993332
+      },
+      {
+        "q": "amoxicilinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 268.94779999996535
+      },
+      {
+        "q": "lisinoprill",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 252.89950000005774
+      },
+      {
+        "q": "metforminn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1304.6425000000745
+      },
+      {
+        "q": "atorvastatinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 254.2621999999974
+      },
+      {
+        "q": "omeprazolle",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 253.97280000010505
+      },
+      {
+        "q": "sertralline",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1330.3525000000373
+      },
+      {
+        "q": "gabapentinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 102.23569999984466
+      },
+      {
+        "q": "levothyroxinne",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 207.40620000008494
+      },
+      {
+        "q": "prednisonne",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 257.4039000000339
+      },
+      {
+        "q": "warfarinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 248.81740000005811
+      },
+      {
+        "q": "albuterrol",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 263.82700000004843
+      },
+      {
+        "q": "cetirizzine",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 258.53040000004694
+      },
+      {
+        "q": "losartann",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 252.53000000002794
+      },
+      {
+        "q": "simvastatinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1301.6371999999974
+      },
+      {
+        "q": "tramadoll",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 257.2524999999441
+      },
+      {
+        "q": "doxycyclinne",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 259.5431999999564
+      },
+      {
+        "q": "fluoxetinne",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 263.03410000004806
+      }
+    ],
+    "warm-redis": [
+      {
+        "q": "aspirin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.878400000045076
+      },
+      {
+        "q": "ibuprofen",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.6381999999284744
+      },
+      {
+        "q": "acetaminophen",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.12140000006184
+      },
+      {
+        "q": "naproxen",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.1160999999847263
+      },
+      {
+        "q": "diclofenac",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.32259999983944
+      },
+      {
+        "q": "celecoxib",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 4.195400000084192
+      },
+      {
+        "q": "meloxicam",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.287999999942258
+      },
+      {
+        "q": "indomethacin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.832200000062585
+      },
+      {
+        "q": "ketorolac",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.905500000109896
+      },
+      {
+        "q": "piroxicam",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.0545000000856817
+      },
+      {
+        "q": "morphine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.5489000000525266
+      },
+      {
+        "q": "codeine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.4582999998237938
+      },
+      {
+        "q": "oxycodone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.250800000037998
+      },
+      {
+        "q": "hydrocodone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.1060000001452863
+      },
+      {
+        "q": "tramadol",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.81429999996908
+      },
+      {
+        "q": "fentanyl",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.7176999999210238
+      },
+      {
+        "q": "methadone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.724800000200048
+      },
+      {
+        "q": "buprenorphine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.7109999998938292
+      },
+      {
+        "q": "hydromorphone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.7597000000532717
+      },
+      {
+        "q": "naloxone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.911599999992177
+      },
+      {
+        "q": "naltrexone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.8157999999821186
+      },
+      {
+        "q": "amoxicillin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.8784999998752028
+      },
+      {
+        "q": "ampicillin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.3442999999970198
+      },
+      {
+        "q": "penicillin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.315599999856204
+      },
+      {
+        "q": "azithromycin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.9104999999981374
+      },
+      {
+        "q": "clarithromycin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.7912999999243766
+      },
+      {
+        "q": "erythromycin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5932000000029802
+      },
+      {
+        "q": "doxycycline",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6075999999884516
+      },
+      {
+        "q": "tetracycline",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4366000001318753
+      },
+      {
+        "q": "minocycline",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4046999998390675
+      },
+      {
+        "q": "ciprofloxacin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4729000001680106
+      },
+      {
+        "q": "levofloxacin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6700000001583248
+      },
+      {
+        "q": "moxifloxacin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4962999999988824
+      },
+      {
+        "q": "cephalexin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.8024999999906868
+      },
+      {
+        "q": "ceftriaxone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5111000000033528
+      },
+      {
+        "q": "cefuroxime",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4973000001627952
+      },
+      {
+        "q": "vancomycin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5078000000212342
+      },
+      {
+        "q": "gentamicin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4487000000663102
+      },
+      {
+        "q": "clindamycin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4905000000726432
+      },
+      {
+        "q": "metronidazole",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.440100000007078
+      },
+      {
+        "q": "nitrofurantoin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.436299999943003
+      },
+      {
+        "q": "trimethoprim",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.548600000096485
+      },
+      {
+        "q": "sulfamethoxazole",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6015999999362975
+      },
+      {
+        "q": "linezolid",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5217999999877065
+      },
+      {
+        "q": "rifampin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5468999999575317
+      },
+      {
+        "q": "isoniazid",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4036999999079853
+      },
+      {
+        "q": "acyclovir",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5382999998982996
+      },
+      {
+        "q": "valacyclovir",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.447700000135228
+      },
+      {
+        "q": "oseltamivir",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4222999999765307
+      },
+      {
+        "q": "zidovudine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.3648000000976026
+      },
+      {
+        "q": "tenofovir",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4938999998848885
+      },
+      {
+        "q": "lamivudine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.3351000000257045
+      },
+      {
+        "q": "ritonavir",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.483500000089407
+      },
+      {
+        "q": "fluconazole",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4271999998018146
+      },
+      {
+        "q": "ketoconazole",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4290000000037253
+      },
+      {
+        "q": "terbinafine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.3587000002153218
+      },
+      {
+        "q": "atorvastatin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5319000000599772
+      },
+      {
+        "q": "simvastatin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4373000001069158
+      },
+      {
+        "q": "rosuvastatin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4341999997850507
+      },
+      {
+        "q": "pravastatin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.3211999998893589
+      },
+      {
+        "q": "lovastatin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.003099999856204
+      },
+      {
+        "q": "lisinopril",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.401300000026822
+      },
+      {
+        "q": "enalapril",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6876000000629574
+      },
+      {
+        "q": "ramipril",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4518999999854714
+      },
+      {
+        "q": "losartan",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.484900000039488
+      },
+      {
+        "q": "valsartan",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5246999999508262
+      },
+      {
+        "q": "irbesartan",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4770000001881272
+      },
+      {
+        "q": "amlodipine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.3800999999511987
+      },
+      {
+        "q": "nifedipine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.411900000181049
+      },
+      {
+        "q": "diltiazem",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4159000001382083
+      },
+      {
+        "q": "verapamil",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.512699999846518
+      },
+      {
+        "q": "metoprolol",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.3906000000424683
+      },
+      {
+        "q": "atenolol",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.3861000000033528
+      },
+      {
+        "q": "propranolol",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4291999998968095
+      },
+      {
+        "q": "carvedilol",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4601000000257045
+      },
+      {
+        "q": "bisoprolol",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4499999999534339
+      },
+      {
+        "q": "hydrochlorothiazide",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4331999998539686
+      },
+      {
+        "q": "furosemide",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.393099999986589
+      },
+      {
+        "q": "spironolactone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.3755000000819564
+      },
+      {
+        "q": "chlorthalidone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4750000000931323
+      },
+      {
+        "q": "warfarin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4251999999396503
+      },
+      {
+        "q": "clopidogrel",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4283000000286847
+      },
+      {
+        "q": "apixaban",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4321999999228865
+      },
+      {
+        "q": "rivaroxaban",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5111000000033528
+      },
+      {
+        "q": "dabigatran",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6962999999523163
+      },
+      {
+        "q": "digoxin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6225000000558794
+      },
+      {
+        "q": "amiodarone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4346000000368804
+      },
+      {
+        "q": "nitroglycerin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.476899999892339
+      },
+      {
+        "q": "hydralazine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4675000000279397
+      },
+      {
+        "q": "clonidine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.8262000000104308
+      },
+      {
+        "q": "ezetimibe",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.7855999998282641
+      },
+      {
+        "q": "metformin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5275999999139458
+      },
+      {
+        "q": "glipizide",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5374000000301749
+      },
+      {
+        "q": "glyburide",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.481499999994412
+      },
+      {
+        "q": "glimepiride",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.485300000058487
+      },
+      {
+        "q": "pioglitazone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4580999999307096
+      },
+      {
+        "q": "sitagliptin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6592999999411404
+      },
+      {
+        "q": "empagliflozin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.861900000134483
+      },
+      {
+        "q": "dapagliflozin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.8100000000558794
+      },
+      {
+        "q": "canagliflozin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.640499999979511
+      },
+      {
+        "q": "omeprazole",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.0705999999772757
+      },
+      {
+        "q": "esomeprazole",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5387000001501292
+      },
+      {
+        "q": "pantoprazole",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6702999998815358
+      },
+      {
+        "q": "lansoprazole",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.0494999999646097
+      },
+      {
+        "q": "famotidine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6248999999370426
+      },
+      {
+        "q": "ranitidine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.636000000173226
+      },
+      {
+        "q": "ondansetron",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6498000000137836
+      },
+      {
+        "q": "metoclopramide",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6313999998383224
+      },
+      {
+        "q": "loperamide",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.8970999999437481
+      },
+      {
+        "q": "bisacodyl",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6145999999716878
+      },
+      {
+        "q": "sertraline",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5609000001568347
+      },
+      {
+        "q": "fluoxetine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5253999999258667
+      },
+      {
+        "q": "citalopram",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.190599999856204
+      },
+      {
+        "q": "escitalopram",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.641600000206381
+      },
+      {
+        "q": "paroxetine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.030500000109896
+      },
+      {
+        "q": "venlafaxine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.112700000172481
+      },
+      {
+        "q": "duloxetine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.471299999859184
+      },
+      {
+        "q": "bupropion",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.8673000000417233
+      },
+      {
+        "q": "mirtazapine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.9321000000927597
+      },
+      {
+        "q": "trazodone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.0755000000353903
+      },
+      {
+        "q": "amitriptyline",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.2210999999661
+      },
+      {
+        "q": "nortriptyline",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.6621000000741333
+      },
+      {
+        "q": "lithium carbonate",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.545600000070408
+      },
+      {
+        "q": "quetiapine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.7035000000614673
+      },
+      {
+        "q": "olanzapine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.8491999998223037
+      },
+      {
+        "q": "risperidone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.022499999962747
+      },
+      {
+        "q": "aripiprazole",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.912599999923259
+      },
+      {
+        "q": "haloperidol",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.9880000001285225
+      },
+      {
+        "q": "clozapine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.272899999981746
+      },
+      {
+        "q": "alprazolam",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.9183999998494983
+      },
+      {
+        "q": "lorazepam",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.8425000000279397
+      },
+      {
+        "q": "diazepam",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.2896999998483807
+      },
+      {
+        "q": "clonazepam",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.9424000000581145
+      },
+      {
+        "q": "zolpidem",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.904500000178814
+      },
+      {
+        "q": "buspirone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.7997999999206513
+      },
+      {
+        "q": "methylphenidate",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.945500000147149
+      },
+      {
+        "q": "amphetamine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.58199999993667
+      },
+      {
+        "q": "atomoxetine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.388299999991432
+      },
+      {
+        "q": "modafinil",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.9573000001255423
+      },
+      {
+        "q": "caffeine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 3.2897000000812113
+      },
+      {
+        "q": "gabapentin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.7993999999016523
+      },
+      {
+        "q": "pregabalin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.8270000000484288
+      },
+      {
+        "q": "levetiracetam",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.7044999999925494
+      },
+      {
+        "q": "lamotrigine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.744700000155717
+      },
+      {
+        "q": "carbamazepine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.6373000000603497
+      },
+      {
+        "q": "phenytoin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.958399999886751
+      },
+      {
+        "q": "valproic acid",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.571599999908358
+      },
+      {
+        "q": "topiramate",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.594000000040978
+      },
+      {
+        "q": "sumatriptan",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.4032999998889863
+      },
+      {
+        "q": "donepezil",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.1199000000488013
+      },
+      {
+        "q": "memantine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.203800000017509
+      },
+      {
+        "q": "levodopa",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.4351999999489635
+      },
+      {
+        "q": "carbidopa",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.240999999921769
+      },
+      {
+        "q": "ropinirole",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 2.0396999998483807
+      },
+      {
+        "q": "albuterol",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.9770000001881272
+      },
+      {
+        "q": "salmeterol",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.8777000000700355
+      },
+      {
+        "q": "montelukast",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.7595999999903142
+      },
+      {
+        "q": "fluticasone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6825999999418855
+      },
+      {
+        "q": "budesonide",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5867000001017004
+      },
+      {
+        "q": "theophylline",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.7807000000029802
+      },
+      {
+        "q": "cetirizine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.7155999999959022
+      },
+      {
+        "q": "loratadine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.7112999998498708
+      },
+      {
+        "q": "fexofenadine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6033000000752509
+      },
+      {
+        "q": "diphenhydramine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4435999998822808
+      },
+      {
+        "q": "pseudoephedrine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4506999999284744
+      },
+      {
+        "q": "dextromethorphan",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4347000000998378
+      },
+      {
+        "q": "guaifenesin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4431999998632818
+      },
+      {
+        "q": "levothyroxine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5738999999593943
+      },
+      {
+        "q": "prednisone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.4938999998848885
+      },
+      {
+        "q": "prednisolone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5121999999973923
+      },
+      {
+        "q": "dexamethasone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5782999999355525
+      },
+      {
+        "q": "hydrocortisone",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6681000001262873
+      },
+      {
+        "q": "methotrexate",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5344000000040978
+      },
+      {
+        "q": "allopurinol",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.8515000001061708
+      },
+      {
+        "q": "colchicine",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.8368999999947846
+      },
+      {
+        "q": "finasteride",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5296000000089407
+      },
+      {
+        "q": "tamsulosin",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.6239000000059605
+      },
+      {
+        "q": "sildenafil",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.7125999999698251
+      },
+      {
+        "q": "tadalafil",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5855000000447035
+      },
+      {
+        "q": "estradiol",
+        "status": 200,
+        "cache": "redis",
+        "n": 1,
+        "ms": 1.5993999999482185
+      },
+      {
+        "q": "asprinnn",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.82010000012815
+      },
+      {
+        "q": "ibuprofenn",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.5112000000663102
+      },
+      {
+        "q": "acetaminofenn",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.5918999998830259
+      },
+      {
+        "q": "amoxicilinn",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.4598999998997897
+      },
+      {
+        "q": "lisinoprill",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.4118999999482185
+      },
+      {
+        "q": "metforminn",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.5501999999396503
+      },
+      {
+        "q": "atorvastatinn",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.6037000000942498
+      },
+      {
+        "q": "omeprazolle",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.462400000076741
+      },
+      {
+        "q": "sertralline",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.6681000001262873
+      },
+      {
+        "q": "gabapentinn",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.5006999999750406
+      },
+      {
+        "q": "levothyroxinne",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.7155999999959022
+      },
+      {
+        "q": "prednisonne",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.5368000001180917
+      },
+      {
+        "q": "warfarinn",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.5889999999199063
+      },
+      {
+        "q": "albuterrol",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.520299999974668
+      },
+      {
+        "q": "cetirizzine",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.7117000001017004
+      },
+      {
+        "q": "losartann",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.693100000033155
+      },
+      {
+        "q": "simvastatinn",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.5626000000629574
+      },
+      {
+        "q": "tramadoll",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.5519999999087304
+      },
+      {
+        "q": "doxycyclinne",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.6023999999742955
+      },
+      {
+        "q": "fluoxetinne",
+        "status": 200,
+        "cache": "redis",
+        "n": 0,
+        "ms": 1.61559999990277
+      }
+    ],
+    "warm-db": [
+      {
+        "q": "aspirin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 7.472500000149012
+      },
+      {
+        "q": "ibuprofen",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 7.355100000044331
+      },
+      {
+        "q": "acetaminophen",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 7.211899999994785
+      },
+      {
+        "q": "naproxen",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 6.835800000000745
+      },
+      {
+        "q": "diclofenac",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 6.953999999910593
+      },
+      {
+        "q": "celecoxib",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 6.366900000022724
+      },
+      {
+        "q": "meloxicam",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 6.5445000000763685
+      },
+      {
+        "q": "indomethacin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 6.037400000030175
+      },
+      {
+        "q": "ketorolac",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 6.447700000135228
+      },
+      {
+        "q": "piroxicam",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 5.349099999992177
+      },
+      {
+        "q": "morphine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 5.325300000142306
+      },
+      {
+        "q": "codeine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 5.017299999948591
+      },
+      {
+        "q": "oxycodone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 5.1864000000059605
+      },
+      {
+        "q": "hydrocodone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 5.170399999944493
+      },
+      {
+        "q": "tramadol",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 4.697699999902397
+      },
+      {
+        "q": "fentanyl",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 4.641399999847636
+      },
+      {
+        "q": "methadone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 4.294299999950454
+      },
+      {
+        "q": "buprenorphine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.7346000000834465
+      },
+      {
+        "q": "hydromorphone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 4.175000000046566
+      },
+      {
+        "q": "naloxone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.76769999996759
+      },
+      {
+        "q": "naltrexone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.626600000075996
+      },
+      {
+        "q": "amoxicillin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.638800000073388
+      },
+      {
+        "q": "ampicillin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.6955999999772757
+      },
+      {
+        "q": "penicillin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.377600000007078
+      },
+      {
+        "q": "azithromycin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.224299999885261
+      },
+      {
+        "q": "clarithromycin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.027699999976903
+      },
+      {
+        "q": "erythromycin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.994399999966845
+      },
+      {
+        "q": "doxycycline",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1907999999821186
+      },
+      {
+        "q": "tetracycline",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.263299999991432
+      },
+      {
+        "q": "minocycline",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2480999999679625
+      },
+      {
+        "q": "ciprofloxacin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2070000001695007
+      },
+      {
+        "q": "levofloxacin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0442999999504536
+      },
+      {
+        "q": "moxifloxacin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2956999999005347
+      },
+      {
+        "q": "cephalexin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1081999999005347
+      },
+      {
+        "q": "ceftriaxone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.204799999948591
+      },
+      {
+        "q": "cefuroxime",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1713000000454485
+      },
+      {
+        "q": "vancomycin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.22400000016205
+      },
+      {
+        "q": "gentamicin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.5095999999903142
+      },
+      {
+        "q": "clindamycin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1380000000353903
+      },
+      {
+        "q": "metronidazole",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.111100000096485
+      },
+      {
+        "q": "nitrofurantoin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.9573000001255423
+      },
+      {
+        "q": "trimethoprim",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0335999999661
+      },
+      {
+        "q": "sulfamethoxazole",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.349900000030175
+      },
+      {
+        "q": "linezolid",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2010999999474734
+      },
+      {
+        "q": "rifampin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.204999999841675
+      },
+      {
+        "q": "isoniazid",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0059000002220273
+      },
+      {
+        "q": "acyclovir",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.3774999999441206
+      },
+      {
+        "q": "valacyclovir",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.4747999999672174
+      },
+      {
+        "q": "oseltamivir",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0746999999973923
+      },
+      {
+        "q": "zidovudine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.156700000166893
+      },
+      {
+        "q": "tenofovir",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2092999999877065
+      },
+      {
+        "q": "lamivudine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.172200000146404
+      },
+      {
+        "q": "ritonavir",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0748000000603497
+      },
+      {
+        "q": "fluconazole",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.9725999999791384
+      },
+      {
+        "q": "ketoconazole",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.079600000055507
+      },
+      {
+        "q": "terbinafine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.062099999981001
+      },
+      {
+        "q": "atorvastatin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.4772000000812113
+      },
+      {
+        "q": "simvastatin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.345600000116974
+      },
+      {
+        "q": "rosuvastatin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.044899999862537
+      },
+      {
+        "q": "pravastatin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 4.4421999999322
+      },
+      {
+        "q": "lovastatin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.391300000017509
+      },
+      {
+        "q": "lisinopril",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.5503000000026077
+      },
+      {
+        "q": "enalapril",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.555299999890849
+      },
+      {
+        "q": "ramipril",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 4.234999999869615
+      },
+      {
+        "q": "losartan",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 4.006199999945238
+      },
+      {
+        "q": "valsartan",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.464699999894947
+      },
+      {
+        "q": "irbesartan",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.059899999992922
+      },
+      {
+        "q": "amlodipine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.060899999924004
+      },
+      {
+        "q": "nifedipine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1299000000581145
+      },
+      {
+        "q": "diltiazem",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.255200000014156
+      },
+      {
+        "q": "verapamil",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.580599999986589
+      },
+      {
+        "q": "metoprolol",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 5.480900000082329
+      },
+      {
+        "q": "atenolol",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.4683000000659376
+      },
+      {
+        "q": "propranolol",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.34900000016205
+      },
+      {
+        "q": "carvedilol",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1970999999903142
+      },
+      {
+        "q": "bisoprolol",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.527699999976903
+      },
+      {
+        "q": "hydrochlorothiazide",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.179299999959767
+      },
+      {
+        "q": "furosemide",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.102500000037253
+      },
+      {
+        "q": "spironolactone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.143699999898672
+      },
+      {
+        "q": "chlorthalidone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.176899999845773
+      },
+      {
+        "q": "warfarin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0345000000670552
+      },
+      {
+        "q": "clopidogrel",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.076200000010431
+      },
+      {
+        "q": "apixaban",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.99059999990277
+      },
+      {
+        "q": "rivaroxaban",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.9799999999813735
+      },
+      {
+        "q": "dabigatran",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.8913999998476356
+      },
+      {
+        "q": "digoxin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.7907000000122935
+      },
+      {
+        "q": "amiodarone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.9981999997980893
+      },
+      {
+        "q": "nitroglycerin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.048799999989569
+      },
+      {
+        "q": "hydralazine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.171199999982491
+      },
+      {
+        "q": "clonidine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.937300000106916
+      },
+      {
+        "q": "ezetimibe",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.993400000035763
+      },
+      {
+        "q": "metformin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.9416000000201166
+      },
+      {
+        "q": "glipizide",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0424999999813735
+      },
+      {
+        "q": "glyburide",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2280000001192093
+      },
+      {
+        "q": "glimepiride",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.217699999921024
+      },
+      {
+        "q": "pioglitazone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.3196999998763204
+      },
+      {
+        "q": "sitagliptin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.082799999974668
+      },
+      {
+        "q": "empagliflozin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.94399999990128
+      },
+      {
+        "q": "dapagliflozin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1515999999828637
+      },
+      {
+        "q": "canagliflozin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0979999999981374
+      },
+      {
+        "q": "omeprazole",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.064100000075996
+      },
+      {
+        "q": "esomeprazole",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.039199999999255
+      },
+      {
+        "q": "pantoprazole",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.037400000030175
+      },
+      {
+        "q": "lansoprazole",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0688000000081956
+      },
+      {
+        "q": "famotidine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.492599999997765
+      },
+      {
+        "q": "ranitidine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.187099999981001
+      },
+      {
+        "q": "ondansetron",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.97289999993518
+      },
+      {
+        "q": "metoclopramide",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0772000001743436
+      },
+      {
+        "q": "loperamide",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2664000000804663
+      },
+      {
+        "q": "bisacodyl",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.440900000045076
+      },
+      {
+        "q": "sertraline",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0476999999955297
+      },
+      {
+        "q": "fluoxetine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2320000000763685
+      },
+      {
+        "q": "citalopram",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.154399999883026
+      },
+      {
+        "q": "escitalopram",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0083999999333173
+      },
+      {
+        "q": "paroxetine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.4269000000786036
+      },
+      {
+        "q": "venlafaxine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2533000002149493
+      },
+      {
+        "q": "duloxetine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.312900000018999
+      },
+      {
+        "q": "bupropion",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1644999999552965
+      },
+      {
+        "q": "mirtazapine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.6339000000152737
+      },
+      {
+        "q": "trazodone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 4.588800000026822
+      },
+      {
+        "q": "amitriptyline",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.250400000018999
+      },
+      {
+        "q": "nortriptyline",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.4290000000037253
+      },
+      {
+        "q": "lithium carbonate",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.238999999826774
+      },
+      {
+        "q": "quetiapine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2963000000454485
+      },
+      {
+        "q": "olanzapine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1639000000432134
+      },
+      {
+        "q": "risperidone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.9884999999776483
+      },
+      {
+        "q": "aripiprazole",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.266300000017509
+      },
+      {
+        "q": "haloperidol",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.037599999923259
+      },
+      {
+        "q": "clozapine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.247700000181794
+      },
+      {
+        "q": "alprazolam",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.4421999999321997
+      },
+      {
+        "q": "lorazepam",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.110599999781698
+      },
+      {
+        "q": "diazepam",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.3149999999441206
+      },
+      {
+        "q": "clonazepam",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.4346000000368804
+      },
+      {
+        "q": "zolpidem",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2073000001255423
+      },
+      {
+        "q": "buspirone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.3459000000730157
+      },
+      {
+        "q": "methylphenidate",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.086600000038743
+      },
+      {
+        "q": "amphetamine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0497000000905246
+      },
+      {
+        "q": "atomoxetine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.276900000171736
+      },
+      {
+        "q": "modafinil",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1460000001825392
+      },
+      {
+        "q": "caffeine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.031300000147894
+      },
+      {
+        "q": "gabapentin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.996900000143796
+      },
+      {
+        "q": "pregabalin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.036199999973178
+      },
+      {
+        "q": "levetiracetam",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.264699999941513
+      },
+      {
+        "q": "lamotrigine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2541999998502433
+      },
+      {
+        "q": "carbamazepine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.5596000000368804
+      },
+      {
+        "q": "phenytoin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1122000000905246
+      },
+      {
+        "q": "valproic acid",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.04300000006333
+      },
+      {
+        "q": "topiramate",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.107499999925494
+      },
+      {
+        "q": "sumatriptan",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.231099999975413
+      },
+      {
+        "q": "donepezil",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.06830000015907
+      },
+      {
+        "q": "memantine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0054999999701977
+      },
+      {
+        "q": "levodopa",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0614000000059605
+      },
+      {
+        "q": "carbidopa",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.44579999987036
+      },
+      {
+        "q": "ropinirole",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0320000001229346
+      },
+      {
+        "q": "albuterol",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.9794000000692904
+      },
+      {
+        "q": "salmeterol",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0848999998997897
+      },
+      {
+        "q": "montelukast",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.999399999855086
+      },
+      {
+        "q": "fluticasone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1676999998744577
+      },
+      {
+        "q": "budesonide",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.3416999999899417
+      },
+      {
+        "q": "theophylline",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1082000001333654
+      },
+      {
+        "q": "cetirizine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2123000000137836
+      },
+      {
+        "q": "loratadine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.2615000000223517
+      },
+      {
+        "q": "fexofenadine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.7257999998982996
+      },
+      {
+        "q": "diphenhydramine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.174299999838695
+      },
+      {
+        "q": "pseudoephedrine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0135999999474734
+      },
+      {
+        "q": "dextromethorphan",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.9563999997917563
+      },
+      {
+        "q": "guaifenesin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 2.857700000051409
+      },
+      {
+        "q": "levothyroxine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.090199999976903
+      },
+      {
+        "q": "prednisone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0652000000700355
+      },
+      {
+        "q": "prednisolone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.056299999821931
+      },
+      {
+        "q": "dexamethasone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.034199999878183
+      },
+      {
+        "q": "hydrocortisone",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1334999999962747
+      },
+      {
+        "q": "methotrexate",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.1200999999418855
+      },
+      {
+        "q": "allopurinol",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.3741000001318753
+      },
+      {
+        "q": "colchicine",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.196999999927357
+      },
+      {
+        "q": "finasteride",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.5490999999456108
+      },
+      {
+        "q": "tamsulosin",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.3859999999403954
+      },
+      {
+        "q": "sildenafil",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.0882999999448657
+      },
+      {
+        "q": "tadalafil",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.399500000057742
+      },
+      {
+        "q": "estradiol",
+        "status": 200,
+        "cache": "db",
+        "n": 1,
+        "ms": 3.144099999917671
+      },
+      {
+        "q": "asprinnn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 48.08599999989383
+      },
+      {
+        "q": "ibuprofenn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1302.0245000000577
+      },
+      {
+        "q": "acetaminofenn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1297.5729000000283
+      },
+      {
+        "q": "amoxicilinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1305.342699999921
+      },
+      {
+        "q": "lisinoprill",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 245.59470000001602
+      },
+      {
+        "q": "metforminn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1311.8653000001796
+      },
+      {
+        "q": "atorvastatinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 5341.727799999993
+      },
+      {
+        "q": "omeprazolle",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 227.15460000000894
+      },
+      {
+        "q": "sertralline",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1309.8247999998275
+      },
+      {
+        "q": "gabapentinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 5321.093600000022
+      },
+      {
+        "q": "levothyroxinne",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 15334.041700000176
+      },
+      {
+        "q": "prednisonne",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 245.69060000008903
+      },
+      {
+        "q": "warfarinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 232.0366999998223
+      },
+      {
+        "q": "albuterrol",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 265.407600000035
+      },
+      {
+        "q": "cetirizzine",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1311.9000999999698
+      },
+      {
+        "q": "losartann",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1296.2645000000484
+      },
+      {
+        "q": "simvastatinn",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 1296.6560000001919
+      },
+      {
+        "q": "tramadoll",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 255.57539999997243
+      },
+      {
+        "q": "doxycyclinne",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 291.93310000002384
+      },
+      {
+        "q": "fluoxetinne",
+        "status": 200,
+        "cache": "miss",
+        "n": 0,
+        "ms": 225.31680000014603
+      }
+    ]
+  }
+}

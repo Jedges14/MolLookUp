@@ -7,6 +7,8 @@ const REDIS = process.env.E2E_REDIS_URL ?? 'redis://localhost:6379/1';
 const MOCK_PORT = 4010;
 const API_PORT = 3101;
 const WEB_PORT = 5174;
+// Set E2E_BASE_URL to smoke-test an already-running deployment instead of starting the local stack.
+const REMOTE = process.env.E2E_BASE_URL;
 
 export default defineConfig({
   testDir: './tests',
@@ -15,12 +17,12 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : [['list']],
   use: {
-    baseURL: `http://127.0.0.1:${WEB_PORT}`,
+    baseURL: REMOTE ?? `http://127.0.0.1:${WEB_PORT}`,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
-  webServer: [
+  webServer: REMOTE ? undefined : [
     {
       command: 'node mock-pubchem.mjs',
       url: `http://127.0.0.1:${MOCK_PORT}/health`,

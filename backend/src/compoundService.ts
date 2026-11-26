@@ -51,6 +51,12 @@ export interface CompoundServiceOptions {
   ttls?: CacheTtls;
   /** On a full miss, throw CacheOnlyMissError instead of calling PubChem. */
   cacheOnly?: boolean;
+  /**
+   * Benchmark baseline only: skip Redis and Postgres entirely (no reads, no writes), so every
+   * lookup is what the app would do with no caching at all. Search uses 2 PubChem requests
+   * (name → CIDs, batched properties); it skips the synonym fetch that exists only to fill the cache.
+   */
+  bypassCache?: boolean;
   metrics?: Pick<Metrics, 'recordLookup' | 'recordCacheOnlyRejection'>;
 }
 
@@ -102,6 +108,16 @@ export class CompoundService {
       return { query, cache, results: value ? [toSummary(value)] : [] };
     }
 
+    if (this.opts.bypassCache) {
+      let found: Compound[] = [];
+      try {
+        found = await this.pubchem.properties(await this.pubchem.cidsByName(query, SEARCH_CID_LIMIT));
+      } catch (err) {
+        if (!(err instanceof PubChemError && err.code === 'NOT_FOUND')) throw err;
+      }
+      return this.done('search', { query, cache: 'miss', results: found.map(toSummary) });
+    }
+
     const key = cacheKeys.search(query);
     const cached = parseJson<{ results: CompoundSummary[] }>(await this.cache.get(key));
     if (cached && Array.isArray(cached.results)) {
@@ -151,6 +167,14 @@ export class CompoundService {
   }
 
   async detail(cid: number): Promise<Sourced<CompoundRecord | null>> {
+    if (this.opts.bypassCache) {
+      const [c] = await this.pubchem.properties([cid]).catch((err: unknown) => {
+        if (err instanceof PubChemError && err.code === 'NOT_FOUND') return [] as Compound[];
+        throw err;
+      });
+      return this.sourced('detail', c ? { ...c, synonyms: [], fetchedAt: new Date().toISOString() } : null, 'miss');
+    }
+
     const key = cacheKeys.compound(cid);
     const raw = await this.cache.get(key);
     if (raw === NOT_FOUND) return this.sourced('detail', null, 'redis', true);
