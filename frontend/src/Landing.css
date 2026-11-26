@@ -89,12 +89,14 @@
 .inputText{
     font-size: 35px;
     padding:12px;
+    margin:0 auto;
     color: #00ffff;
 }
 
 #input{
     border-radius: 20px;
     width: 75%;
+    margin: 0 auto;
     box-sizing: border-box;
     box-shadow: inset;
     padding:8px;
@@ -126,3 +128,30 @@
     font-size: 16px;
 }
 
+
+/* Search results (M1) */
+.results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.result {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.result img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 8px;
+}
+.result h4 {
+  margin: 0 0 4px;
+}
+.result p {
+  margin: 2px 0;
+}

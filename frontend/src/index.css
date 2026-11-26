@@ -7,8 +7,6 @@
 body,html{
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
   height: auto;
   width:100%;
   background-image:url('./components/background1.png');

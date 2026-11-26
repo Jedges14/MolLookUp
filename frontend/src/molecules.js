@@ -18,9 +18,9 @@ const molecules = [
     {
         "name": "LSD",
         "formula": "C20H25N3O",
-        "weight": 323.44,
+        "weight": 323.4,
         "funFact": "A powerful hallucinogen active at microgram doses.",
-        "cid": 8223,
+        "cid": 5761,
         "summary": "Synthesized in 1938 by Albert Hofmann at Sandoz Labs. Its hallucinogenic effects were discovered in 1943. Later used in unethical MK-Ultra experiments."
     },
     {
@@ -136,12 +136,12 @@ const molecules = [
         "summary": "Used since antiquity, chemically characterized in the 1800s. Historical links to addiction and health issues."
     },
     {
-        "name": "Insulin",
-        "formula": "C254H377N65O75S6",
-        "weight": 5808.0,
-        "funFact": "Hormone that regulates blood sugar levels.",
-        "cid": 6926,
-        "summary": "Discovered in 1921 by Frederick Banting and Charles Best. Revolutionized diabetes treatment. "
+        "name": "Metformin",
+        "formula": "C4H11N5",
+        "weight": 129.16,
+        "funFact": "One of the most widely prescribed drugs for type 2 diabetes.",
+        "cid": 4091,
+        "summary": "Derived from galegine, a compound in French lilac (Galega officinalis). Introduced as a diabetes medicine in France in 1957."
     },
     {
         "name": "Cholesterol",
@@ -168,12 +168,12 @@ const molecules = [
         "summary": "Isolated in 1935 by Ernst Laqueur. Used in hormone therapy and performance enhancement. "
     },
     {
-        "name": "Hemoglobin",
-        "formula": "C2952H4664N812O832S8Fe4",
-        "weight": 64500.0,
-        "funFact": "Protein that carries oxygen in blood.",
-        "cid": 443,
-        "summary": "Discovered in the mid-1800s; structure solved by Max Perutz in 1959. Central to physiology. "
+        "name": "Melatonin",
+        "formula": "C13H16N2O2",
+        "weight": 232.28,
+        "funFact": "Hormone that helps regulate the sleep-wake cycle.",
+        "cid": 896,
+        "summary": "Isolated in 1958 by Aaron Lerner and colleagues at Yale from bovine pineal glands."
     },
     {
         "name": "Vanillin",
